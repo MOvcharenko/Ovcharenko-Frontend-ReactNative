@@ -27,6 +27,8 @@ npx expo start
 #    OR press 'a' for Android emulator / 'i' for iOS simulator
 ```
 
+**Important:** This project uses Expo SDK 54.0.33. Ensure your Expo Go app is updated to version 54.x to avoid compatibility issues. If you encounter errors, try clearing Expo Go's cache or reinstalling the app.
+
 ---
 
 ## 📱 Features & Screens
@@ -102,20 +104,6 @@ No external state library — React `useState` and `useRef` are sufficient for t
 - `useNativeDriver: true` is used wherever possible (transforms, opacity) for 60fps on the JS thread
 - `useNativeDriver: false` is used only where required (layout properties like `flex`, SVG `strokeDashoffset`)
 - All `Animated.Value` refs are created with `useRef` to survive re-renders
-
----
-
-## 👥 Team Roles
-
-| Member | Responsibility |
-|--------|---------------|
-| **[Name 1]** | `SwipeCard.tsx` — PanResponder gesture system, card flip animation, swipe interpolation |
-| **[Name 2]** | `CardDeckScreen.tsx` + `StatsBar.tsx` — Deck state management, stagger progress bars |
-| **[Name 3]** | `ProgressRing.tsx` — Animated SVG component, spring arc animation |
-| **[Name 4]** | `DraggableList.tsx` + `ListScreen.tsx` — LayoutAnimation reordering, sequence pulse |
-| **[Name 5]** | `StatsScreen.tsx` + `types.ts` — Statistics UI, staggered entrance, TypeScript types |
-
-> Replace `[Name N]` with your actual team members before presenting.
 
 ---
 

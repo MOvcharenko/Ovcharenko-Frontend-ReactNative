@@ -38,7 +38,6 @@ const CardDeckScreen: React.FC<CardDeckScreenProps> = ({ onNavigate, activeTab }
     skipped: CARDS.length,
   });
 
-  // Animated value for the "all done" screen fade-in
   const doneAnim = useRef(new Animated.Value(0)).current;
 
   const handleSwipe = useCallback(
@@ -68,7 +67,6 @@ const CardDeckScreen: React.FC<CardDeckScreenProps> = ({ onNavigate, activeTab }
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>CardDeck</Text>
         <Text style={styles.cardCount}>
@@ -76,7 +74,6 @@ const CardDeckScreen: React.FC<CardDeckScreenProps> = ({ onNavigate, activeTab }
         </Text>
       </View>
 
-      {/* Progress Ring */}
       <View style={styles.ringContainer}>
         <ProgressRing
           progress={doneProgress}
@@ -87,10 +84,8 @@ const CardDeckScreen: React.FC<CardDeckScreenProps> = ({ onNavigate, activeTab }
         />
       </View>
 
-      {/* Stats Bar */}
       <StatsBar data={progress} />
 
-      {/* Card Stack */}
       <View style={styles.deckArea}>
         {cards.length === 0 ? (
           <Animated.View style={[styles.doneCard, { opacity: doneAnim, transform: [{ scale: doneAnim.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1] }) }] }]}>
@@ -105,13 +100,15 @@ const CardDeckScreen: React.FC<CardDeckScreenProps> = ({ onNavigate, activeTab }
           </Animated.View>
         ) : (
           [...cards].reverse().map((card, reversedIndex) => {
-            const index = cards.length - 1 - reversedIndex; // 0 = top
+            const index = cards.length - 1 - reversedIndex;
+            const isTop = index === 0;
+            // 🔑 Force remount when isTop changes by including it in key
             return (
               <SwipeCard
-                key={card.id}
+                key={`${card.id}-${isTop}`}
                 card={card}
                 onSwipe={handleSwipe}
-                isTop={index === 0}
+                isTop={isTop}
                 index={index}
               />
             );
@@ -119,7 +116,6 @@ const CardDeckScreen: React.FC<CardDeckScreenProps> = ({ onNavigate, activeTab }
         )}
       </View>
 
-      {/* Bottom Tabs */}
       <View style={styles.tabBar}>
         {(['deck', 'list', 'stats'] as const).map((tab) => (
           <TouchableOpacity
